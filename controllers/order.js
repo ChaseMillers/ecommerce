@@ -1,5 +1,7 @@
 const { Order, CartItem } = require("../models/order");
 const { errorHandler } = require("../helpers/dbErrorHandler");
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
 
 exports.orderById = (req, res, next, id) => {
     Order.findById(id)
@@ -25,6 +27,18 @@ exports.create = (req, res) => {
                 error: errorHandler(error)
             });
         }
+        const emailData = {
+            to: 'chasemillers@outlook.com',
+            from: 'noreply@ecommerce.com',
+            subject: `A new order is received`,
+            html: `
+            <p>Customer name:</p>
+            <p>Total products: ${order.products.length}</p>
+            <p>Total cost: ${order.amount}</p>
+            <p>Login to dashboard to the order in detail.</p>
+        `
+        };
+        sgMail.send(emailData);
         res.json(data);
     });
 };

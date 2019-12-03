@@ -20,12 +20,12 @@ const app = express();
 
 // db
 mongoose
-    .connect(process.env.DATABASE, {
-        useNewUrlParser: true, 
-        useCreateIndex: true
-    })  
-    .then(() => console.log("DB Connected")); 
-
+.connect(process.env.DATABASE, {
+    useNewUrlParser: true, 
+    useCreateIndex: true
+})  
+.then(() => console.log("DB Connected")); 
+ 
 // middlewares
 app.use(morgan("dev"));
 app.use(bodyParser.json());
