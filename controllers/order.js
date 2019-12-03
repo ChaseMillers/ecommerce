@@ -1,7 +1,5 @@
 const { Order, CartItem } = require("../models/order");
 const { errorHandler } = require("../helpers/dbErrorHandler");
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
 
 exports.orderById = (req, res, next, id) => {
     Order.findById(id)
@@ -16,6 +14,9 @@ exports.orderById = (req, res, next, id) => {
             next();
         });
 };
+
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
 
 exports.create = (req, res) => {
     // console.log("CREATE ORDER: ", req.body);
