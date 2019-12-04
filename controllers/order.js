@@ -30,7 +30,7 @@ exports.create = (req, res) => {
             });
         }
         const emailData = {
-            to: 'meesterspiffy@yahoo.com',
+            to: 'ChaseMillers@outlook.com',
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: `
