@@ -1,6 +1,7 @@
 const { Order, CartItem } = require("../models/order");
 const { errorHandler } = require("../helpers/dbErrorHandler");
 
+const email = process.env.ADMIN_EMAIL
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey('process.env.API_EMAIL');
 
@@ -30,7 +31,7 @@ exports.create = (req, res) => {
             });
         }
         const emailData = {
-            to: 'ChaseMillers@outlook.com',
+            to: email,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: `
