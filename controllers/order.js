@@ -2,7 +2,7 @@ const { Order, CartItem } = require("../models/order");
 const { errorHandler } = require("../helpers/dbErrorHandler");
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 
 exports.orderById = (req, res, next, id) => {
