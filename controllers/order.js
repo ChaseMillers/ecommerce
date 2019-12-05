@@ -31,7 +31,7 @@ exports.create = (req, res) => {
             });
         }
         const emailData = {
-            to: email,
+            to: 'chasemillers@outlook.com',
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: `
