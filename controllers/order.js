@@ -3,7 +3,7 @@ const { errorHandler } = require("../helpers/dbErrorHandler");
 
 const email = process.env.ADMIN_EMAIL
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('process.env.API_EMAIL');
+sgMail.setApiKey(process.env.API_EMAIL);
 
 
 exports.orderById = (req, res, next, id) => {
@@ -35,7 +35,7 @@ exports.create = (req, res) => {
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: `
-            <p>Customer name:</p>
+            <p>Customer Adress:</p>
             <p>Total products: ${order.products.length}</p>
             <p>Total cost: ${order.amount}</p>
             <p>Login to dashboard to the order in detail.</p>
