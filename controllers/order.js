@@ -35,10 +35,10 @@ exports.create = (req, res) => {
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: `
-            <p>Customer Adress:</p>
+            <p>Customer Adress: ${order.address}</p>
             <p>Total products: ${order.products.length}</p>
             <p>Total cost: ${order.amount}</p>
-            <p>Login to dashboard to the order in detail.</p>
+            <p>Purchase has been logged to your dashboard.</p>
         `
         };
         sgMail.send(emailData);
