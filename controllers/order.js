@@ -36,14 +36,15 @@ exports.create = (req, res) => {
             subject: `A new order is received`,
             html: `
             <h1>Order Details</h1>
-            <p>Name: ${order.name}</p>
-            <p>Email: ${order.email}</p>
-            <p><b>Adress:</b>${order.address}</p>
-            <p>Apt./Suite: ${order.apt}</p>
-            <p>City: ${order.city}</p>
-            <p>Zip: ${order.zip}</p>
-            <p>State: ${order.state}</p>
-            <p>Country: ${order.country}</p>
+            <p><b>Name:</b> ${order.name}</p>
+            <p><b>Email:</b> ${order.email}</p>
+            <p><b>Adress:</b> ${order.address}</p>
+            <p><b>Apt./Suite:</b> ${order.apt}</p>
+            <p><b>City:</b> ${order.city}</p>
+            <p><b>Zip:</b> ${order.zip}</p>
+            <p><b>State:</b> ${order.state}</p>
+            <p><b>Country:</b> ${order.country}</p>
+            <p><b>products:</b> ${order.products}</p>
             <p>Total products: ${order.products.length}</p>
             <p>Total cost: ${order.amount}</p>
             <p>Purchase has been logged to your dashboard.</p>
