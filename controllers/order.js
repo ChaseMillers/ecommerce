@@ -38,7 +38,7 @@ exports.create = (req, res) => {
             <h1>Order Details</h1>
             <p>Name: ${order.name}</p>
             <p>Email: ${order.email}</p>
-            <p>Adress: ${order.address}</p>
+            <b>Adress:</b><p>${order.address}</p>
             <p>Apt./Suite: ${order.apt}</p>
             <p>City: ${order.city}</p>
             <p>Zip: ${order.zip}</p>
