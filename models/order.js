@@ -20,7 +20,13 @@ const OrderSchema = new mongoose.Schema(
     transaction_id: {},
     amount: { type: Number },
     email: String,
+    name: String,
     address: String,
+    apt: String,
+    city: String,
+    zip: String,
+    state: String,
+    country: String,
     status: {
       type: String,
       default: "Not processed",
