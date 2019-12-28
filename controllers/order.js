@@ -45,7 +45,7 @@ exports.create = (req, res) => {
             <p><b>State:</b> ${order.state}</p>
             <p><b>Country:</b> ${order.country}</p>
             <p><b>products:</b> ${order.products}</p>
-            <p><b>products:</b> ${order.products.name}</p>
+            <p><b>products:</b> ${order.products["name"]}</p>
             <p>Total products: ${order.products.length}</p>
             <p>Total cost: ${order.amount}</p>
             <p>Purchase has been logged to your dashboard.</p>
