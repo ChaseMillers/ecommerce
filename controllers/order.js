@@ -31,13 +31,6 @@ exports.create = (req, res) => {
             });
         }
         
-        for(i in data) {
-            if(data.hasOwnProperty(i)) {
-                var value = data[i];
-                return value
-            }
-        }
-        
         const emailData = {
             to: email,
             from: 'noreply@ecommerce.com',
