@@ -30,12 +30,22 @@ exports.create = (req, res) => {
                 error: errorHandler(error)
             });
         }
+        
+        for(i in data) {
+            if(data.hasOwnProperty(i)) {
+                var value = data[i];
+                return value
+            }
+        }
+        
         const emailData = {
             to: email,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: `
-            <h1>Order Details</h1>
+            <h1>Order</h1>
+            <h2>Shipping Address</h2>
+            <hr />
             <p><b>Name:</b> ${order.name}</p>
             <p><b>Email:</b> ${order.email}</p>
             <p><b>Adress:</b> ${order.address}</p>
@@ -44,8 +54,9 @@ exports.create = (req, res) => {
             <p><b>Zip:</b> ${order.zip}</p>
             <p><b>State:</b> ${order.state}</p>
             <p><b>Country:</b> ${order.country}</p>
+            <h2>Order Details</h2>
+            <hr />
             <p><b>products:</b> ${order.products}</p>
-            <p><b>products:</b> ${order.products["name"]}</p>
             <p>Total products: ${order.products.length}</p>
             <p>Total cost: ${order.amount}</p>
             <p>Purchase has been logged to your dashboard.</p>
