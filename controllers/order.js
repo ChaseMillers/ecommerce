@@ -36,7 +36,7 @@ exports.create = (req, res) => {
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: `
-            <h1>Order</h1>
+            <h1>Order Confirmation</h1>
             <h2>Shipping Address</h2>
             <hr />
             <p><b>Name:</b> ${order.name}</p>
