@@ -54,7 +54,8 @@ exports.create = (req, res) => {
                 <p><b>Total products:</b> ${order.products.length}</p>
                 <hr />
                 <p><b>Products:</b> ${order.products[i].name}</p>
-                
+                <p><b>Products Price:</b> ${order.products[i].price}</p>
+                <p><b>Product Count:</b> ${order.products[i].count}</p>
             `
         };
         sgMail.send(emailData);
