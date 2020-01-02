@@ -24,8 +24,8 @@ exports.create = (req, res) => {
     // console.log("CREATE ORDER: ", req.body);
     req.body.order.user = req.profile;
     const order = new Order(req.body.order);
+    let productGrouped = "";
     order.save((error, data) => {
-        let productGrouped = "";
         if (error) {
             return res.status(400).json({
                 error: errorHandler(error)
@@ -34,11 +34,10 @@ exports.create = (req, res) => {
         for (let i = 0; i < order.products.length; i ++)
         {
             productGrouped += 
-                 `
+                `<hr />
                 <p><b>Products:</b> ${order.products[i].name}</p>
                 <p><b>Products Price:</b> ${order.products[i].price}</p>
                 <p><b>Product Count:</b> ${order.products[i].count}</p>
-                <hr />
                 `
         }
     const emailData = {
@@ -48,27 +47,26 @@ exports.create = (req, res) => {
             html: 
                 `
                     <h1>Order Confirmation</h1>
-                    <hr />
-                    <h2><b>Total Charge:</b> $${order.amount}</h2>
-                    <h2><b>Total Products Selected:</b> ${order.products.length}</h2>
-                    <h2>Shipping Address</h2>
-                    <hr />
-                    <p><b>Name:</b> ${order.name}</p>
-                    <p><b>Email:</b> ${order.email}</p>
-                    <p><b>Adress:</b> ${order.address}</p>
-                    <p><b>Apt./Suite:</b> ${order.apt}</p>
-                    <p><b>City:</b> ${order.city}</p>
-                    <p><b>Zip:</b> ${order.zip}</p>
-                    <p><b>State:</b> ${order.state}</p>
-                    <p><b>Country:</b> ${order.country}</p>
+                    <br />
+                    <li><p><b>Total Charge:</b> $${order.amount}</p></li>
+                    <li><p><b>Total Products Selected:</b> ${order.products.length}</p></li>
                     <h2>Order Details</h2>
                     <hr />
                     ${productGrouped}
+                    <h2>Shipping Address</h2>
+                    <hr />
+                    <li><p><b>Name:</b> ${order.name}</p></li>
+                    <li><p><b>Email:</b> ${order.email}</p></li>
+                    <li><p><b>Adress:</b> ${order.address}</p></li>
+                    <li><p><b>Apt./Suite:</b> ${order.apt}</p></li>
+                    <li><p><b>City:</b> ${order.city}</p></li>
+                    <li><p><b>Zip:</b> ${order.zip}</p></li>
+                    <li><p><b>State:</b> ${order.state}</p></li>
+                    <li><p><b>Country:</b> ${order.country}</p></li>
                 `
         }
     sgMail.send(emailData);
     res.json(data);
-        
     });
 };
 
