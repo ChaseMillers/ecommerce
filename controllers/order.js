@@ -34,10 +34,11 @@ exports.create = (req, res) => {
         for (let i = 0; i < order.products.length; i ++)
         {
             productGrouped += 
-                `<hr />
-                <p><b>Products:</b> ${order.products[i].name}</p>
-                <p><b>Products Price:</b> ${order.products[i].price}</p>
-                <p><b>Product Count:</b> ${order.products[i].count}</p>
+                `
+                <li><b>Product:</b> ${order.products[i].name}</li>
+                <li><b>Price:</b> ${order.products[i].price}</li>
+                <li><b>Count:</b> ${order.products[i].count}</li>
+                <br />
                 `
         }
     const emailData = {
@@ -47,22 +48,25 @@ exports.create = (req, res) => {
             html: 
                 `
                     <h1>Order Confirmation</h1>
+                    <h2>Total: $${order.amount}</h2>
                     <br />
-                    <li><p><b>Total Charge:</b> $${order.amount}</p></li>
-                    <li><p><b>Total Products Selected:</b> ${order.products.length}</p></li>
-                    <h2>Order Details</h2>
+                    <h3>Products: ${order.products.length}</h3>
                     <hr />
-                    ${productGrouped}
-                    <h2>Shipping Address</h2>
+                    <ul style="list-style-type: none;">
+                        ${productGrouped}
+                    </ul>
+                    <h3>Shipping Address</h3>
                     <hr />
-                    <li><p><b>Name:</b> ${order.name}</p></li>
-                    <li><p><b>Email:</b> ${order.email}</p></li>
-                    <li><p><b>Adress:</b> ${order.address}</p></li>
-                    <li><p><b>Apt./Suite:</b> ${order.apt}</p></li>
-                    <li><p><b>City:</b> ${order.city}</p></li>
-                    <li><p><b>Zip:</b> ${order.zip}</p></li>
-                    <li><p><b>State:</b> ${order.state}</p></li>
-                    <li><p><b>Country:</b> ${order.country}</p></li>
+                    <ul style="list-style-type: none;">
+                        <li><b>Name:</b> ${order.name}</li>
+                        <li><b>Email:</b> ${order.email}</li>
+                        <li><b>Adress:</b> ${order.address}</li>
+                        <li><b>Apt./Suite:</b> ${order.apt}</li>
+                        <li><b>City:</b> ${order.city}</li>
+                        <li><b>Zip:</b> ${order.zip}</li>
+                        <li><b>State:</b> ${order.state}</li>
+                        <li><b>Country:</b> ${order.country}</li>
+                    </ul>
                 `
         }
     sgMail.send(emailData);
