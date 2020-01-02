@@ -24,6 +24,7 @@ exports.create = (req, res) => {
     // console.log("CREATE ORDER: ", req.body);
     req.body.order.user = req.profile;
     const order = new Order(req.body.order);
+    const emailData = "";
     order.save((error, data) => {
         if (error) {
             return res.status(400).json({
@@ -39,13 +40,15 @@ exports.create = (req, res) => {
                 <p><b>Product Count:</b> ${order.products[i].count}</p>
                 <hr />
                 `
-        
-            const emailData = {
+            emailData += {
                 to: email,
                 from: 'noreply@ecommerce.com',
                 subject: `A new order is received`,
                 html: `
                 <h1>Order Confirmation</h1>
+                <hr />
+                <h2><b>Total Charge:</b> $${order.amount}</h2>
+                <h2><b>Total Products Selected:</b> ${order.products.length}</h2>
                 <h2>Shipping Address</h2>
                 <hr />
                 <p><b>Name:</b> ${order.name}</p>
@@ -58,15 +61,12 @@ exports.create = (req, res) => {
                 <p><b>Country:</b> ${order.country}</p>
                 <h2>Order Details</h2>
                 <hr />
-                <p><b>Total cost:</b> ${order.amount}</p>
-                <p><b>Total products:</b> ${order.products.length}</p>
-                <hr />
                 ${productGrouped}
             `
         };
-        sgMail.send(emailData);
-        res.json(data);
     }
+    sgMail.send(emailData);
+    res.json(data);
         
     });
 };
