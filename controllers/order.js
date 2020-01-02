@@ -32,6 +32,14 @@ exports.create = (req, res) => {
         }
         for (let i = 0; i < order.products.length; i ++)
         {
+            const productGrouped = 
+                 `
+                <p><b>Products:</b> ${order.products[i].name}</p>
+                <p><b>Products Price:</b> ${order.products[i].price}</p>
+                <p><b>Product Count:</b> ${order.products[i].count}</p>
+                <hr />
+                `
+        
             const emailData = {
                 to: email,
                 from: 'noreply@ecommerce.com',
@@ -53,14 +61,13 @@ exports.create = (req, res) => {
                 <p><b>Total cost:</b> ${order.amount}</p>
                 <p><b>Total products:</b> ${order.products.length}</p>
                 <hr />
-                <p><b>Products:</b> ${order.products[i].name}</p>
-                <p><b>Products Price:</b> ${order.products[i].price}</p>
-                <p><b>Product Count:</b> ${order.products[i].count}</p>
+                ${productGrouped}
             `
         };
         sgMail.send(emailData);
         res.json(data);
     }
+        
     });
 };
 
