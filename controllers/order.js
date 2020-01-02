@@ -36,7 +36,7 @@ exports.create = (req, res) => {
             productGrouped += 
                 `
                 <li><b>Product:</b> ${order.products[i].name}</li>
-                <li><b>Price:</b> ${order.products[i].price}</li>
+                <li><b>Price:</b> $${order.products[i].price}</li>
                 <li><b>Count:</b> ${order.products[i].count}</li>
                 <br />
                 `
