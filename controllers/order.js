@@ -50,11 +50,12 @@ exports.create = (req, res) => {
                 <p><b>Country:</b> ${order.country}</p>
                 <h2>Order Details</h2>
                 <hr />
-                <p><b>products:</b> ${order.products}</p>
-                <p><b>products:</b> ${order.products[i].name}</p>
-                <p><b>Total products:</b> ${order.products.length}</p>
                 <p><b>Total cost:</b> ${order.amount}</p>
-                <p><b>Purchase has been logged to your dashboard.</b></p>
+                <p><b>Total products:</b> ${order.products.length}</p>
+                <hr />
+                <p><b>Products:</b> ${order.products[i].name}</p>
+                <p><b>Products Price:</b> ${order.products[i].price}</p>
+                <p><b>Product Count:</b> ${order.products[i].count}</p>
             `
         };
         sgMail.send(emailData);
