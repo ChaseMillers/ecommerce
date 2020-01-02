@@ -24,9 +24,9 @@ exports.create = (req, res) => {
     // console.log("CREATE ORDER: ", req.body);
     req.body.order.user = req.profile;
     const order = new Order(req.body.order);
-    const emailData = "";
-    const productGrouped = "";
     order.save((error, data) => {
+        const emailData = "";
+        const productGrouped = "";
         if (error) {
             return res.status(400).json({
                 error: errorHandler(error)
@@ -42,7 +42,7 @@ exports.create = (req, res) => {
                 <hr />
                 `
         }
-        emailData += {
+        emailData = {
             to: email,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
