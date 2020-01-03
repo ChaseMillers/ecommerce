@@ -103,7 +103,8 @@ exports.create = (req, res) => {
                     </ul>
                 `
         }
-    sgMail.send(emailData, clientEmailData);
+    sgMail.send(emailData);
+    sgMail.send(clientEmailData);
     res.json(data);
     });
 };
