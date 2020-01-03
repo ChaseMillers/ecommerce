@@ -69,7 +69,37 @@ exports.create = (req, res) => {
                     </ul>
                 `
         }
-    sgMail.send(emailData);
+    const clientEmail = {
+            to: order.email,
+            from: 'noreply@ecommerce.com',
+            subject: `A new order is received`,
+            html: 
+                `
+                    <h1>Thanks For Your Purchase!</h1>
+                    <h2>Items will be shipped in 1-3 busniess days.</h2>
+                    <h1>Order Confirmation</h1>
+                    <h2>Total: $${order.amount}</h2>
+                    <br />
+                    <h3>Products: ${order.products.length}</h3>
+                    <hr />
+                    <ul style="list-style-type: none;">
+                        ${productGrouped}
+                    </ul>
+                    <h3>Shipping Address</h3>
+                    <hr />
+                    <ul style="list-style-type: none;">
+                        <li><b>Name:</b> ${order.name}</li>
+                        <li><b>Email:</b> ${order.email}</li>
+                        <li><b>Adress:</b> ${order.address}</li>
+                        <li><b>Apt./Suite:</b> ${order.apt}</li>
+                        <li><b>City:</b> ${order.city}</li>
+                        <li><b>Zip:</b> ${order.zip}</li>
+                        <li><b>State:</b> ${order.state}</li>
+                        <li><b>Country:</b> ${order.country}</li>
+                    </ul>
+                `
+        }
+    sgMail.send(emailData, clientEmail);
     res.json(data);
     });
 };
