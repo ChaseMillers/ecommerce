@@ -2,7 +2,6 @@ const { Order, CartItem } = require("../models/order");
 const { errorHandler } = require("../helpers/dbErrorHandler");
 
 const email = process.env.ADMIN_EMAIL
-const clientEmail = `${order.email}`
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.API_EMAIL);
 
@@ -26,6 +25,7 @@ exports.create = (req, res) => {
     req.body.order.user = req.profile;
     const order = new Order(req.body.order);
     let productGrouped = "";
+    const clientEmail = `${order.email}`
     order.save((error, data) => {
     
         if (error) {
