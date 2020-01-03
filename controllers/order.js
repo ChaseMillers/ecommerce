@@ -76,7 +76,7 @@ exports.create = (req, res) => {
     const clientEmailData = {
             to: clientEmail,
             from: 'noreply@ecommerce.com',
-            subject: `A new order is received`,
+            subject: `Your order receipt`,
             html: 
                 `
                     <h1>Thanks For Your Purchase!</h1>
