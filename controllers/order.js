@@ -43,7 +43,7 @@ exports.create = (req, res) => {
                 `
         }
     const emailData = {
-            to: `${order.email}`,
+            to: `meesterspiffy@yahoo.com`,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: 
