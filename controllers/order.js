@@ -2,6 +2,7 @@ const { Order, CartItem } = require("../models/order");
 const { errorHandler } = require("../helpers/dbErrorHandler");
 
 const email = process.env.ADMIN_EMAIL
+const clientEmail = `${order.email}`
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.API_EMAIL);
 
@@ -42,9 +43,9 @@ exports.create = (req, res) => {
                 <br />
                 `
         }
-    const userEmail = `${order.email}`
+    
     const emailData = {
-            to: userEmail,
+            to: clientEmail,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: 
@@ -71,8 +72,9 @@ exports.create = (req, res) => {
                     </ul>
                 `
         }
+  
     const clientEmailData = {
-            to: order.email,
+            to: clientEmail,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: 
