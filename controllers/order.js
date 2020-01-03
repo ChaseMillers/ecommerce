@@ -79,28 +79,29 @@ exports.create = (req, res) => {
             subject: `Your order receipt`,
             html: 
                 `
-                    <h1>Thanks For Your Purchase!</h1>
-                    <h2>Items will be shipped in 1-3 busniess days.</h2>
-                    <h1>Order Confirmation</h1>
-                    <h2>Total: $${order.amount}</h2>
-                    <br />
-                    <h3>Products: ${order.products.length}</h3>
-                    <hr />
-                    <ul style="list-style-type: none;">
-                        ${productGrouped}
-                    </ul>
-                    <h3>Shipping Address</h3>
-                    <hr />
-                    <ul style="list-style-type: none;">
-                        <li><b>Name:</b> ${order.name}</li>
-                        <li><b>Email:</b> ${order.email}</li>
-                        <li><b>Adress:</b> ${order.address}</li>
-                        <li><b>Apt./Suite:</b> ${order.apt}</li>
-                        <li><b>City:</b> ${order.city}</li>
-                        <li><b>Zip:</b> ${order.zip}</li>
-                        <li><b>State:</b> ${order.state}</li>
-                        <li><b>Country:</b> ${order.country}</li>
-                    </ul>
+                <h1>Thanks For Your Purchase!</h1>
+                <h2>Items will be shipped in 1-3 business days.</h2>
+                <br />
+                <h2>Order Confirmation</h2>
+                <h3>Total: $${order.amount}</h3>
+               
+                <h3>Products: ${order.products.length}</h3>
+                <hr />
+                <ul style="list-style-type: none;">
+                    ${productGrouped}
+                </ul>
+                <h3>Shipping Address</h3>
+                <hr />
+                <ul style="list-style-type: none;">
+                    <li><b>Name:</b> ${order.name}</li>
+                    <li><b>Email:</b> ${order.email}</li>
+                    <li><b>Adress:</b> ${order.address}</li>
+                    <li><b>Apt./Suite:</b> ${order.apt}</li>
+                    <li><b>City:</b> ${order.city}</li>
+                    <li><b>Zip:</b> ${order.zip}</li>
+                    <li><b>State:</b> ${order.state}</li>
+                    <li><b>Country:</b> ${order.country}</li>
+                </ul>
                 `
         }
     sgMail.send(emailData);
