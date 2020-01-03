@@ -26,7 +26,6 @@ exports.create = (req, res) => {
     const order = new Order(req.body.order);
     let productGrouped = "";
     order.save((error, data) => {
-    const clientEmail = (order.email)
     
         if (error) {
             return res.status(400).json({
@@ -44,7 +43,7 @@ exports.create = (req, res) => {
                 `
         }
     const emailData = {
-            to: clientEmail,
+            to: `${order.email}`,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: 
