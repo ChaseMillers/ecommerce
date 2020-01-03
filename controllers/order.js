@@ -26,6 +26,8 @@ exports.create = (req, res) => {
     const order = new Order(req.body.order);
     let productGrouped = "";
     order.save((error, data) => {
+    const clientEmail = (order.email)
+    
         if (error) {
             return res.status(400).json({
                 error: errorHandler(error)
@@ -42,7 +44,7 @@ exports.create = (req, res) => {
                 `
         }
     const emailData = {
-            to: email,
+            to: clientEmail,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
             html: 
@@ -69,7 +71,7 @@ exports.create = (req, res) => {
                     </ul>
                 `
         }
-    const clientEmail = {
+    const clientEmailData = {
             to: order.email,
             from: 'noreply@ecommerce.com',
             subject: `A new order is received`,
@@ -99,7 +101,7 @@ exports.create = (req, res) => {
                     </ul>
                 `
         }
-    sgMail.send(emailData, clientEmail);
+    sgMail.send(emailData);
     res.json(data);
     });
 };
