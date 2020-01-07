@@ -104,6 +104,9 @@ exports.create = (req, res) => {
                 </ul>
                 `
         }
+    res.json({
+        success: "true"
+    });
     sgMail.send(emailData);
     sgMail.send(clientEmailData);
     res.json(data);
