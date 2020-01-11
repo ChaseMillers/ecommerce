@@ -22,13 +22,13 @@ exports.orderById = (req, res, next, id) => {
 
 exports.create = (req, res) => {
     // console.log("CREATE ORDER: ", req.body);
-    res.json({
-        success: "true"
-        });
     req.body.order.user = req.profile;
     const order = new Order(req.body.order);
     let productGrouped = "";
     order.save((error, data) => {
+        res.json({
+            success: "true"
+            });
     
         if (error) {
             return res.status(400).json({
