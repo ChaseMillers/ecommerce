@@ -25,6 +25,9 @@ exports.create = (req, res) => {
     req.body.order.user = req.profile;
     const order = new Order(req.body.order);
     let productGrouped = "";
+    res.json({
+        success: "true"
+        });
     order.save((error, data) => {
     
         if (error) {
