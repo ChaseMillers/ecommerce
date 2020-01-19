@@ -5,7 +5,6 @@ const email = process.env.ADMIN_EMAIL
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.API_EMAIL);
 
-
 exports.orderById = (req, res, next, id) => {
     Order.findById(id)
         .populate("products.product", "name price")
@@ -21,28 +20,33 @@ exports.orderById = (req, res, next, id) => {
 };
 
 exports.create = (req, res) => {
-    // console.log("CREATE ORDER: ", req.body);
+    // console.log('CREATE ORDER: ', req.body);
     req.body.order.user = req.profile;
     const order = new Order(req.body.order);
     let productGrouped = "";
    
     order.save((error, data) => {
-    
         if (error) {
             return res.status(400).json({
                 error: errorHandler(error)
             });
         }
-        for (let i = 0; i < order.products.length; i ++)
-        {
-            productGrouped += 
-                `
-                <li><b>Product:</b> ${order.products[i].name}</li>
-                <li><b>Price:</b> $${order.products[i].price}</li>
-                <li><b>Count:</b> ${order.products[i].count}</li>
-                <br />
-                `
-        }
+        // User.find({ categories: { $in: categories } }).exec((err, users) => {}
+        // console.log('ORDER IS JUST SAVED >>> ', order);
+        // send email alert to admin
+        // order.address
+        // order.products.length
+        // order.amount
+        // for (let i = 0; i < order.products.length; i ++)
+        // {
+        //     productGrouped += 
+        //         `
+        //         <li><b>Product:</b> ${order.products[i].name}</li>
+        //         <li><b>Price:</b> $${order.products[i].price}</li>
+        //         <li><b>Count:</b> ${order.products[i].count}</li>
+        //         <br />
+        //         `
+        // }
     
     const emailData = {
             to: email,
@@ -52,12 +56,8 @@ exports.create = (req, res) => {
                 `
                     <h1>Order Confirmation</h1>
                     <h2>Total: $${order.amount}</h2>
+                    <h2>Transaction ID: ${order.transaction_id}</h2>
                     <br />
-                    <h3>Products: ${order.products.length}</h3>
-                    <hr />
-                    <ul style="list-style-type: none;">
-                        ${productGrouped}
-                    </ul>
                     <h3>Shipping Address</h3>
                     <hr />
                     <ul style="list-style-type: none;">
@@ -70,12 +70,32 @@ exports.create = (req, res) => {
                         <li><b>State:</b> ${order.state}</li>
                         <li><b>Country:</b> ${order.country}</li>
                     </ul>
-                `
-        }
+                    <h3>Products: ${order.products.length}</h3>
+                    <hr />
+                    <ul style="list-style-type: none;">
+                    ${order.products
+                        .map(p => {
+                            return `<div>
+                                <li><b>Product Name:</b> ${p.name}</h3>
+                                <h3>Product Price:</b> ${p.price}</h3>
+                                <h3>Product Quantity:</b> ${p.count}</h3>
+                                <br />
+                        </div>`;
+                        })
+                        .join('--------------------')}
+                    </ul>
+                    `
+        };
+        sgMail
+            .send(emailData)
+            .then(sent => console.log('SENT >>>', sent))
+            .catch(err => console.log('ERR >>>', err));
 
-    const clientEmail = `${order.email}`
+            // email to buyer
+
+    // const clientEmail = `${order.email}`
     const clientEmailData = {
-            to: clientEmail,
+            to: order.email,
             from: 'noreply@ecommerce.com',
             subject: `Your order receipt`,
             html: 
@@ -85,14 +105,11 @@ exports.create = (req, res) => {
                 <br />
                 <h2>Order Confirmation</h2>
                 <h3>Total: $${order.amount}</h3>
-               
+                <h3>Transaction ID: ${order.transaction_id}</h3>
+                <h3>Order status: ${order.status}</h3>
                 <h3>Products: ${order.products.length}</h3>
                 <hr />
-                <ul style="list-style-type: none;">
-                    ${productGrouped}
-                </ul>
                 <h3>Shipping Address</h3>
-                <hr />
                 <ul style="list-style-type: none;">
                     <li><b>Name:</b> ${order.name}</li>
                     <li><b>Email:</b> ${order.email}</li>
@@ -103,12 +120,28 @@ exports.create = (req, res) => {
                     <li><b>State:</b> ${order.state}</li>
                     <li><b>Country:</b> ${order.country}</li>
                 </ul>
+                <h3>Products: ${order.products.length}</h3>
+                <hr />
+                <ul style="list-style-type: none;">
+                    ${order.products
+                        .map(p => {
+                            return `<div>
+                                <li><b>Product Name:</b> ${p.name}</h3>
+                                <h3>Product Price:</b> ${p.price}</h3>
+                                <h3>Product Quantity:</b> ${p.count}</h3>
+                                <br />
+                        </div>`;
+                        })
+                        .join('--------------------')}
+                    </ul>
                 `
-        }
+        };
   
-    sgMail.send(emailData);
-    sgMail.send(clientEmailData);
-    res.json(data);
+        sgMail
+        .send(clientEmailData)
+        .then(sent => console.log('SENT 2 >>>', sent))
+        .catch(err => console.log('ERR 2 >>>', err));
+        res.json(data);
     });
 };
 
