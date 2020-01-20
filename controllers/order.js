@@ -23,8 +23,6 @@ exports.create = (req, res) => {
     // console.log('CREATE ORDER: ', req.body);
     req.body.order.user = req.profile;
     const order = new Order(req.body.order);
-    let productGrouped = "";
-   
     order.save((error, data) => {
         if (error) {
             return res.status(400).json({
@@ -37,16 +35,6 @@ exports.create = (req, res) => {
         // order.address
         // order.products.length
         // order.amount
-        // for (let i = 0; i < order.products.length; i ++)
-        // {
-        //     productGrouped += 
-        //         `
-        //         <li><b>Product:</b> ${order.products[i].name}</li>
-        //         <li><b>Price:</b> $${order.products[i].price}</li>
-        //         <li><b>Count:</b> ${order.products[i].count}</li>
-        //         <br />
-        //         `
-        // }
     
     const emailData = {
             to: email,
@@ -54,47 +42,45 @@ exports.create = (req, res) => {
             subject: `A new order is received`,
             html: 
                 `
-                    <h1>Order Confirmation</h1>
-                    <h2>Total: $${order.amount}</h2>
-                    <h2>Transaction ID: ${order.transaction_id}</h2>
-                    <br />
-                    <h3>Shipping Address</h3>
-                    <hr />
-                    <ul style="list-style-type: none;">
-                        <li><b>Name:</b> ${order.name}</li>
-                        <li><b>Email:</b> ${order.email}</li>
-                        <li><b>Adress:</b> ${order.address}</li>
-                        <li><b>Apt./Suite:</b> ${order.apt}</li>
-                        <li><b>City:</b> ${order.city}</li>
-                        <li><b>Zip:</b> ${order.zip}</li>
-                        <li><b>State:</b> ${order.state}</li>
-                        <li><b>Country:</b> ${order.country}</li>
-                    </ul>
-                    <h3>Products: ${order.products.length}</h3>
-                    <hr />
-                    <ul style="list-style-type: none;">
-                    ${order.products
-                        .map(p => {
-                            return `<div>
-                                <li><b>Product Name:</b> ${p.name}</h3>
-                                <h3>Product Price:</b> ${p.price}</h3>
-                                <h3>Product Quantity:</b> ${p.count}</h3>
-                                <br />
-                        </div>`;
-                        })
-                        .join('--------------------')}
-                    </ul>
-                    `
-        };
-        sgMail
-            .send(emailData)
-            .then(sent => console.log('SENT >>>', sent))
-            .catch(err => console.log('ERR >>>', err));
-
-            // email to buyer
-
-    // const clientEmail = `${order.email}`
-    const clientEmailData = {
+                <h1>Order Confirmation</h1>
+                <h2>Total: $${order.amount}</h2>
+                <h2>Transaction ID: ${order.transaction_id}</h2>
+                <h2>Order status: ${order.status}</h2>
+                <br />
+                <h3>Shipping Address</h3>
+                <hr />
+                <ul style="list-style-type: none;">
+                    <li><b>Name:</b> ${order.name}</li>
+                    <li><b>Email:</b> ${order.email}</li>
+                    <li><b>Adress:</b> ${order.address}</li>
+                    <li><b>Apt./Suite:</b> ${order.apt}</li>
+                    <li><b>City:</b> ${order.city}</li>
+                    <li><b>Zip:</b> ${order.zip}</li>
+                    <li><b>State:</b> ${order.state}</li>
+                    <li><b>Country:</b> ${order.country}</li>
+                </ul>
+                <h3>Products: ${order.products.length}</h3>
+                <hr />
+                <ul style="list-style-type: none;">
+                ${order.products
+                    .map(p => {
+                        return `<div>
+                        <li><b>Product Name:</b> ${p.name}</li>
+                        <li><b>Product Price:</b> ${p.price}</li>
+                        <li><b>Product Quantity:</b> ${p.count}</li>
+                    </div>`;
+                    })
+                    .join('--------------------')}
+                </ul>
+                `
+    };
+    sgMail
+        .send(emailData)
+        .then(sent => console.log('SENT >>>', sent))
+        .catch(err => console.log('ERR >>>', err));
+    
+    // email to buyer
+    const EmailData2 = {
             to: order.email,
             from: 'noreply@ecommerce.com',
             subject: `Your order receipt`,
@@ -106,8 +92,6 @@ exports.create = (req, res) => {
                 <h2>Order Confirmation</h2>
                 <h3>Total: $${order.amount}</h3>
                 <h3>Transaction ID: ${order.transaction_id}</h3>
-                <h3>Order status: ${order.status}</h3>
-                <h3>Products: ${order.products.length}</h3>
                 <hr />
                 <h3>Shipping Address</h3>
                 <ul style="list-style-type: none;">
@@ -126,10 +110,9 @@ exports.create = (req, res) => {
                     ${order.products
                         .map(p => {
                             return `<div>
-                                <li><b>Product Name:</b> ${p.name}</h3>
-                                <h3>Product Price:</b> ${p.price}</h3>
-                                <h3>Product Quantity:</b> ${p.count}</h3>
-                                <br />
+                                <li><b>Product Name:</b> ${p.name}</li>
+                                <li><b>Product Price:</b> ${p.price}</li>
+                                <li><b>Product Quantity:</b> ${p.count}</li>
                         </div>`;
                         })
                         .join('--------------------')}
@@ -138,7 +121,7 @@ exports.create = (req, res) => {
         };
   
         sgMail
-        .send(clientEmailData)
+        .send(EmailData2)
         .then(sent => console.log('SENT 2 >>>', sent))
         .catch(err => console.log('ERR 2 >>>', err));
         res.json(data);
