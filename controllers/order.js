@@ -87,11 +87,12 @@ exports.create = (req, res) => {
             html: 
                 `
                 <h1>Thanks For Your Purchase!</h1>
-                <h2>Items will be shipped in 1-3 business days.</h2>
+                <p>Items will be shipped in 1-3 business days.</p>
                 <br />
                 <h2>Order Confirmation</h2>
                 <h3>Total: $${order.amount}</h3>
-                <h3>Transaction ID: ${order.transaction_id}</h3>
+                <h3>Transaction ID: 
+                style="color: none;"${order.transaction_id}</h3>
                 <hr />
                 <h3>Shipping Address</h3>
                 <ul style="list-style-type: none;">
