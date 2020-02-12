@@ -92,7 +92,7 @@ exports.create = (req, res) => {
                 <h2>Order Confirmation</h2>
                 <h3>Total: $${order.amount}</h3>
                 <h3>Transaction ID: 
-                style="color: none;"${order.transaction_id}</h3>
+                ${order.transaction_id}</h3>
                 <hr />
                 <h3>Shipping Address</h3>
                 <ul style="list-style-type: none;">
