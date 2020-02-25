@@ -45,6 +45,7 @@ exports.addOrderToUserHistory = (req, res, next) => {
         history.push({
             _id: item._id,
             name: item.name,
+            brief: item.brief,
             description: item.description,
             category: item.category,
             quantity: item.count,

@@ -69,8 +69,7 @@ exports.create = (req, res) => {
                         <li><b>Product Price:</b> ${p.price}</li>
                         <li><b>Product Quantity:</b> ${p.count}</li>
                     </div>`;
-                    })
-                    .join('--------------------')}
+                    })}
                 </ul>
                 `
     };
@@ -115,8 +114,7 @@ exports.create = (req, res) => {
                                 <li><b>Product Price:</b> ${p.price}</li>
                                 <li><b>Product Quantity:</b> ${p.count}</li>
                         </div>`;
-                        })
-                        .join('--------------------')}
+                        })}
                     </ul>
                 `
         };
